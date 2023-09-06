@@ -1,6 +1,7 @@
 package se.lexicon;
 
 import se.lexicon.data.DataStorage;
+import se.lexicon.model.Gender;
 import se.lexicon.model.Person;
 
 import java.util.List;
@@ -24,12 +25,13 @@ public class Exercises {
     }
 
     /*
-        TODO:  2.	Find all females in the collection using findMany().
+        Implemented  2.	Find all females in the collection using findMany().
      */
     public static void exercise2(String message) {
         System.out.println(message);
         //Write your code here
-
+        List<Person> peopleFemale= storage.findMany(person ->person.getGender().equals(Gender.FEMALE));
+        peopleFemale.forEach(System.out::println);
         System.out.println("----------------------");
     }
 
