@@ -1,18 +1,25 @@
 package se.lexicon;
 
 import se.lexicon.data.DataStorage;
+import se.lexicon.model.Person;
+
+import java.util.List;
 
 public class Exercises {
 
     private final static DataStorage storage = DataStorage.INSTANCE;
 
     /*
-       TODO:  1.	Find everyone that has firstName: “Erik” using findMany().
+       Implemented Find everyone that has firstName: “Erik” using findMany().
     */
     public static void exercise1(String message) {
         System.out.println(message);
-        //Write your code here
-
+        //()->
+        List<Person> personNameErik= storage.findMany(person ->"Erik".equals(person.getFirstName()));
+        for (Person person:personNameErik) {
+            System.out.println(person);
+        }
+        //storage.findMany(person -> person.getFirstName().equals("Erik"));
         System.out.println("----------------------");
     }
 
