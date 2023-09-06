@@ -4,7 +4,11 @@ import se.lexicon.data.DataStorage;
 import se.lexicon.model.Gender;
 import se.lexicon.model.Person;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class Exercises {
 
@@ -36,65 +40,82 @@ public class Exercises {
     }
 
     /*
-        TODO:  3.	Find all who are born after (and including) 2000-01-01 using findMany().
+        Implemented  3.	Find all who are born after (and including) 2000-01-01 using findMany().
      */
     public static void exercise3(String message) {
         System.out.println(message);
         //Write your code here
-
+        List<Person> peopleBornAfter2000= storage.findMany(person ->person.getBirthDate().isAfter(LocalDate.of(2000,01,01)));
+        peopleBornAfter2000.forEach(System.out::println);
         System.out.println("----------------------");
     }
 
     /*
-        TODO: 4.	Find the Person that has an id of 123 using findOne().
+        Implemented.	Find the Person that has an id of 123 using findOne().
      */
     public static void exercise4(String message) {
         System.out.println(message);
         //Write your code here
-
+        Person personWithId= storage.findOne(person ->person.getId()==123);
+        System.out.println(personWithId);
         System.out.println("----------------------");
 
     }
 
     /*
-        TODO:  5.	Find the Person that has an id of 456 and convert to String with following content:
+        Implemented  5.	Find the Person that has an id of 456 and convert to String with following content:
             “Name: Nisse Nilsson born 1999-09-09”. Use findOneAndMapToString().
      */
     public static void exercise5(String message) {
+
         System.out.println(message);
         //Write your code here
+        //step 1: find person with id 456
 
+        Person personWithId= storage.findOne(person ->person.getId()==456);
+        //step 2: convert to string
+        String result=storage.findOneAndMapToString((Predicate<Person>) personWithId,Person::toString);
+        System.out.println(result);
         System.out.println("----------------------");
     }
 
     /*
-        TODO:  6.	Find all male people whose names start with “E” and convert each to a String using findManyAndMapEachToString().
+        Implemented:  6.	Find all male people whose names start with “E” and convert each to a String using findManyAndMapEachToString().
      */
     public static void exercise6(String message) {
         System.out.println(message);
         //Write your code here
-
+        List<Person> peopleMale= storage.findMany(person ->person.getGender().equals(Gender.MALE)&&person.getFirstName().startsWith("E"));
+        for (String s : storage.findManyAndMapEachToString((Predicate<Person>) peopleMale, Person::toString)) {
+            System.out.println(s);
+        }
         System.out.println("----------------------");
     }
 
     /*
-        TODO:  7.	Find all people who are below age of 10 and convert them to a String like this:
+        Implemented  7.	Find all people who are below age of 10 and convert them to a String like this:
             “Olle Svensson 9 years”. Use findManyAndMapEachToString() method.
      */
     public static void exercise7(String message) {
         System.out.println(message);
+
         //Write your code here
+        Predicate<Person> peopleWithBelowAge10=storage.findMany(person -> (LocalDate.now().getYear() - (person.getBirthDate().getYear())< 10);
+        List<String> result = storage.findManyAndMapEachToString( peopleWithBelowAge10,Person::toString);
 
         System.out.println("----------------------");
     }
 
     /*
-        TODO:  8.	Using findAndDo() print out all people with firstName “Ulf”.
+        Implemented  8.	Using findAndDo() print out all people with firstName “Ulf”.
      */
     public static void exercise8(String message) {
         System.out.println(message);
         //Write your code here
-
+        //1 step declare predicate to filter people with specified name
+        //2 step print the person
+        Predicate<Person> peopleWithNameUlf=person -> person.getFirstName().equals("Ulf");
+        storage.findAndDo(peopleWithNameUlf,person -> System.out.println(person.getFirstName()+" "+person.getLastName()));
         System.out.println("----------------------");
     }
 
@@ -124,6 +145,8 @@ public class Exercises {
     public static void exercise11(String message) {
         System.out.println(message);
         //Write your code here
+        //Person person=storage.findAndSort(person1 ->);
+
 
         System.out.println("----------------------");
     }
@@ -135,6 +158,7 @@ public class Exercises {
         System.out.println(message);
         //Write your code here
 
+
         System.out.println("----------------------");
     }
 
@@ -144,6 +168,10 @@ public class Exercises {
     public static void exercise13(String message) {
         System.out.println(message);
         //Write your code here
+
+
+
+
 
         System.out.println("----------------------");
     }
