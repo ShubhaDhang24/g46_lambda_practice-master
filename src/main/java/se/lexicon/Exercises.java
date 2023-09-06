@@ -7,6 +7,7 @@ import se.lexicon.model.Person;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -142,13 +143,15 @@ public class Exercises {
     }
 
     /*
-        TODO:  11.	Using findAndSort() find everyone whose firstName starts with A sorted by birthdate.
+        Implemented  11.	Using findAndSort() find everyone whose firstName starts with A sorted by birthdate.
      */
     public static void exercise11(String message) {
         System.out.println(message);
         //Write your code here
-        //Person person=storage.findAndSort(person1 ->);
-
+        Predicate<Person> peopleSortedByNameA= person -> person.getFirstName().startsWith("A");
+        List<Person> filteredAndSorted= storage.findAndSort(peopleSortedByNameA,Comparator.comparing(Person::getBirthDate));
+        for (Person person:filteredAndSorted)
+            System.out.println(person);
 
         System.out.println("----------------------");
     }
